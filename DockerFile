@@ -1,0 +1,14 @@
+        # استخدام صورة Nginx كقاعدة
+   FROM nginx:latest
+
+   # تثبيت الأدوات اللازمة
+   RUN apt-get update && apt-get install -y \
+       libnginx-mod-http-modsecurity \
+       && apt-get clean \
+       && rm -rf /var/lib/apt/lists/*
+
+   # نسخ ملفات التكوين إلى المكان المناسب
+   COPY nginx.conf /etc/nginx/nginx.conf
+
+   # نسخ ملفات الموقع
+   COPY . /usr/share/nginx/html
